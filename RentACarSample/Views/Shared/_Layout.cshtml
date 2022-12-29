@@ -30,7 +30,13 @@
 
                     @if (User.Identity.IsAuthenticated)
                     {
-                        
+                        <ul class="navbar-nav ms-auto">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Profile">
+                                    @User.FindFirst("username").Value
+                                </a>
+                            </li>
+                        </ul>  
                     }
                     else
                     {
