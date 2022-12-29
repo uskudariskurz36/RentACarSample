@@ -67,5 +67,11 @@ namespace RentACarSample.Controllers
 
             return View(model);
         }
+
+        public IActionResult Logout()
+        {
+            HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction(nameof(Login));
+        }
     }
 }
