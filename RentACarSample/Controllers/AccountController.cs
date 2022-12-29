@@ -40,6 +40,11 @@ namespace RentACarSample.Controllers
                     claims.Add(new Claim("memberid", member.Id.ToString()));
                     claims.Add(new Claim("username", member.Username));
 
+                    foreach (MemberRole role in member.Roles)
+                    {
+                        claims.Add(new Claim(ClaimTypes.Role, role.Name));
+                    }
+
                     ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                     ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
 
