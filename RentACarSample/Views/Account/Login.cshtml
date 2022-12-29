@@ -1,8 +1,5 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model LoginViewModel
+
 <div class="" style="margin-top:200px">
     <div class="rounded d-flex justify-content-center">
         <div class="col-md-4 col-sm-12 shadow-lg p-5 bg-light">
@@ -16,9 +13,9 @@
                             <span class="input-group-text bg-primary">
                                 <i class="bi bi-person-plus-fill text-white"></i>
                             </span>
-                            <input class="form-control" placeholder="Name">
+                            <input asp-for="Username" class="form-control" placeholder="username">
                         </div>
-                        <span class="text-danger small"></span>
+                        <span asp-validation-for="Username" class="text-danger small"></span>
                     </div>
 
                     <div class="mb-3">
@@ -26,9 +23,9 @@
                             <span class="input-group-text bg-primary">
                                 <i class="bi bi-key-fill text-white"></i>
                             </span>
-                            <input type="password" class="form-control" placeholder="Password">
+                            <input asp-for="Password" type="password" class="form-control" placeholder="Password">
                         </div>
-                        <span class="text-danger small"></span>
+                        <span asp-validation-for="Password" class="text-danger small"></span>
                     </div>
 
                     <div class="input-group mb-3">
