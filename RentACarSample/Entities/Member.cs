@@ -14,5 +14,7 @@ namespace RentACarSample.Entities
         [Required]
         [StringLength(150)]
         public string Password { get; set; }
+
+        public List<MemberRole> Roles { get; set; }
     }
 }

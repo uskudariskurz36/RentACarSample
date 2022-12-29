@@ -25,6 +25,18 @@ namespace RentACarSample.Controllers
             return View();
         }
 
+        [AllowAnonymous]
+        public IActionResult About()
+        {
+            return View();
+        }
+
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
+
+        [AllowAnonymous]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

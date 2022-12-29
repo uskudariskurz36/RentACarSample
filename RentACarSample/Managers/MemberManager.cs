@@ -1,4 +1,5 @@
-﻿using NETCore.Encrypt.Extensions;
+﻿using Microsoft.EntityFrameworkCore;
+using NETCore.Encrypt.Extensions;
 using RentACarSample.Entities;
 using RentACarSample.Models;
 
@@ -10,7 +11,7 @@ namespace RentACarSample.Managers
         Member Authenticate(LoginViewModel model);
     }
 
-    public class MemberManager: IMemberManager
+    public class MemberManager : IMemberManager
     {
         private DatabaseContext _databaseContext;
 
@@ -33,7 +34,7 @@ namespace RentACarSample.Managers
         {
             model.Password = model.Password.MD5();
 
-            return _databaseContext.Members.FirstOrDefault(
+            return _databaseContext.Members.Include(x => x.Roles).FirstOrDefault(
                 x => x.Username == model.Username && x.Password == model.Password);
         }
     }
