@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using RentACarSample.Entities;
+using RentACarSample.Managers;
 
 namespace RentACarSample
 {
@@ -16,6 +17,8 @@ namespace RentACarSample
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
             });
+
+            builder.Services.AddScoped<IMemberManager, MemberManager>();
 
 
             var app = builder.Build();
