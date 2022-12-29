@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using RentACarSample.Entities;
+
 namespace RentACarSample
 {
     public class Program
@@ -9,7 +12,17 @@ namespace RentACarSample
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+            builder.Services.AddDbContext<DatabaseContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
+            });
+
+
             var app = builder.Build();
+
+
+
+
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
