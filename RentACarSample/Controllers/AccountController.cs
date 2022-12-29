@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc;
 using RentACarSample.Entities;
 using RentACarSample.Managers;
 using RentACarSample.Models;
 using System.Linq.Expressions;
+using System.Security.Claims;
 
 namespace RentACarSample.Controllers
 {
@@ -33,7 +36,15 @@ namespace RentACarSample.Controllers
                 }
                 else
                 {
-                    // Cookie işlemi yapacağız.
+                    List<Claim> claims = new List<Claim>();
+                    claims.Add(new Claim("memberid", member.Id.ToString()));
+                    claims.Add(new Claim("username", member.Username));
+
+                    ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                    ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+
+                    HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal);
+                    return RedirectToAction(nameof(HomeController.Index), "Home");
                 }
             }
 
