@@ -1,4 +1,5 @@
-﻿using RentACarSample.Entities;
+﻿using NETCore.Encrypt.Extensions;
+using RentACarSample.Entities;
 using RentACarSample.Models;
 
 namespace RentACarSample.Managers
@@ -22,6 +23,27 @@ namespace RentACarSample.Managers
             Member member = new Member();
             member.Username = model.Username;
             member.Password = model.Password;
+
+            _databaseContext.Members.Add(member);
+            _databaseContext.SaveChanges();
+        }
+    }
+
+
+    public class MemberManager2 : IMemberManager
+    {
+        private DatabaseContext _databaseContext;
+
+        public MemberManager2(DatabaseContext databaseContext)
+        {
+            _databaseContext = databaseContext;
+        }
+
+        public void AddMember(RegisterViewModel model)
+        {
+            Member member = new Member();
+            member.Username = model.Username;
+            member.Password = model.Password.MD5();
 
             _databaseContext.Members.Add(member);
             _databaseContext.SaveChanges();

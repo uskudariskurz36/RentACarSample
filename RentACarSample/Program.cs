@@ -18,7 +18,7 @@ namespace RentACarSample
                 options.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
             });
 
-            builder.Services.AddScoped<IMemberManager, MemberManager>();
+            builder.Services.AddScoped<IMemberManager, MemberManager2>();
 
 
             var app = builder.Build();
