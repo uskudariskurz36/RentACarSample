@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using RentACarSample.Entities;
 using RentACarSample.Managers;
@@ -18,8 +19,18 @@ namespace RentACarSample
                 options.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
             });
 
-            builder.Services.AddScoped<IMemberManager, MemberManager2>();
+            builder.Services.AddScoped<IMemberManager, MemberManager>();
 
+            // Authentication : Kimlik doðrulama
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.Cookie.Name = "rentacarsample.auth";
+                    options.ExpireTimeSpan = TimeSpan.FromDays(7);
+                    options.LoginPath = "/Account/Login";
+                    options.LogoutPath = "/Account/Logout";
+                    options.AccessDeniedPath = "/Home/AccessDenied";
+                });
 
             var app = builder.Build();
 
@@ -36,7 +47,8 @@ namespace RentACarSample
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            app.UseAuthentication();    // her istekte cookie de valid bir deðer var mý kontrol et.
+            app.UseAuthorization();     // her istekte role kontrolü yapar.
 
             app.MapControllerRoute(
                 name: "default",

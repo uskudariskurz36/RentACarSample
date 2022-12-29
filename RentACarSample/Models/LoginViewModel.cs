@@ -9,7 +9,7 @@ namespace RentACarSample.Models
         public string Username { get; set; }
 
         [Required]
-        [StringLength(150)]
+        [MinLength(6), MaxLength(16)]
         public string Password { get; set; }
     }
 }

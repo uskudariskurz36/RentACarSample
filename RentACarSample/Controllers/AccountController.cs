@@ -23,7 +23,21 @@ namespace RentACarSample.Controllers
         [HttpPost]
         public IActionResult Login(LoginViewModel model)
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+                Member member = _memberManager.Authenticate(model);
+
+                if (member == null)
+                {
+                    ModelState.AddModelError("", "Hatalı kullanıcı adı ya da şifre!");
+                }
+                else
+                {
+                    // Cookie işlemi yapacağız.
+                }
+            }
+
+            return View(model);
         }
 
         public IActionResult Register()
@@ -37,6 +51,7 @@ namespace RentACarSample.Controllers
             if (ModelState.IsValid)
             {
                 _memberManager.AddMember(model);
+                return RedirectToAction(nameof(Login));
             }
 
             return View(model);
