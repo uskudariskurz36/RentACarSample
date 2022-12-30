@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
+using RentACarSample.Common;
 using RentACarSample.Entities;
 using RentACarSample.Managers;
 using RentACarSample.Models;
@@ -12,10 +13,12 @@ namespace RentACarSample.Controllers
     public class AccountController : Controller
     {
         private IMemberManager _memberManager;
+        private IMemberRoleManager _memberRoleManager;
 
-        public AccountController(IMemberManager memberManager)
+        public AccountController(IMemberManager memberManager, IMemberRoleManager memberRoleManager)
         {
             _memberManager = memberManager;
+            _memberRoleManager = memberRoleManager;
         }
 
         public IActionResult Login()
@@ -66,7 +69,21 @@ namespace RentACarSample.Controllers
         {
             if (ModelState.IsValid)
             {
-                _memberManager.AddMember(model);
+                //_memberManager.AddMember(model);
+                //int? memberId = _memberManager.GetIdByUsername(model.Username);
+
+                //if (memberId == null)
+                //{
+                //    ModelState.AddModelError("", "İşlem sırasında hata oluştu.");
+                //}
+                //else
+                //{
+                //    _memberRoleManager.AddMemberRole(memberId.Value, Roles.User);
+                //    return RedirectToAction(nameof(Login));
+                //}
+
+                Member member = _memberManager.AddMember(model);
+                _memberRoleManager.AddMemberRole(member.Id, Roles.User);
                 return RedirectToAction(nameof(Login));
             }
 

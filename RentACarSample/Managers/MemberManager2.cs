@@ -12,19 +12,20 @@ namespace RentACarSample.Managers
             _databaseContext = databaseContext;
         }
 
-        public void AddMember(RegisterViewModel model)
+        public Member AddMember(RegisterViewModel model)
         {
-            Member member = new Member();
-            member.Username = model.Username;
-            member.Password = model.Password;
-
-            _databaseContext.Members.Add(member);
-            _databaseContext.SaveChanges();
+            throw new NotImplementedException();
         }
 
         public Member Authenticate(LoginViewModel model)
         {
             throw new NotImplementedException();
         }
+
+        public int? GetIdByUsername(string username)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }

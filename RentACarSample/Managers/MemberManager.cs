@@ -7,8 +7,9 @@ namespace RentACarSample.Managers
 {
     public interface IMemberManager
     {
-        void AddMember(RegisterViewModel model);
+        Member AddMember(RegisterViewModel model);
         Member Authenticate(LoginViewModel model);
+        int? GetIdByUsername(string username);
     }
 
     public class MemberManager : IMemberManager
@@ -20,14 +21,27 @@ namespace RentACarSample.Managers
             _databaseContext = databaseContext;
         }
 
-        public void AddMember(RegisterViewModel model)
+        public Member AddMember(RegisterViewModel model)
         {
+            if (_databaseContext.Members.Any(x => x.Username.ToLower() == model.Username.ToLower()))
+            {
+                return _databaseContext.Members.Where(x => x.Username.ToLower() == model.Username.ToLower()).FirstOrDefault();
+            }
+
             Member member = new Member();
             member.Username = model.Username;
             member.Password = model.Password.MD5();
 
             _databaseContext.Members.Add(member);
             _databaseContext.SaveChanges();
+
+            return member;
+        }
+
+        public int? GetIdByUsername(string username)
+        {
+            Member member = _databaseContext.Members.Where(x => x.Username.ToLower() == username.ToLower()).FirstOrDefault();
+            return member.Id;
         }
 
         public Member Authenticate(LoginViewModel model)

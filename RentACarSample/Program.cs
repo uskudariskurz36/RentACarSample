@@ -20,6 +20,7 @@ namespace RentACarSample
             });
 
             builder.Services.AddScoped<IMemberManager, MemberManager>();
+            builder.Services.AddScoped<IMemberRoleManager, MemberRoleManager>();
 
             // Authentication : Kimlik doðrulama
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
