@@ -67,16 +67,21 @@ namespace RentACarSample.Controllers
         }
 
         [HttpPost]
-        public IActionResult ChangeRoles(int id, ChangeRolesViewModel model, [FromServices]IServiceProvider serviceProvider)
+        public IActionResult ChangeRoles(int id, ChangeRolesViewModel model)
         {
-            DatabaseContext _databaseContext = serviceProvider.GetRequiredService<DatabaseContext>();   
+            _memberRoleManager.RemoveAllMemberRoles(id);
 
             if (model.IsAdmin)
             {
-                
+                _memberRoleManager.AddMemberRole(id, Roles.Admin);
             }
 
-            return View();
+            if (model.IsUser)
+            {
+                _memberRoleManager.AddMemberRole(id, Roles.User);
+            }
+
+            return RedirectToAction(nameof(UserList));
         }
     }
 }

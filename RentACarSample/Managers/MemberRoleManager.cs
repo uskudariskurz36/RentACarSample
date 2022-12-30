@@ -9,6 +9,7 @@ namespace RentACarSample.Managers
         void RemoveMemberRole(int memberRoleId);
         void RemoveMemberRole(string roleName, int memberId);
         List<MemberRole> GetRolesByMemberId(int memberId);
+        void RemoveAllMemberRoles(int memberId);
     }
 
     public class MemberRoleManager : IMemberRoleManager
@@ -60,6 +61,18 @@ namespace RentACarSample.Managers
         public List<MemberRole> GetRolesByMemberId(int memberId)
         {
             return _databaseContext.MemberRoles.Where(x => x.MemberId == memberId).ToList();
+        }
+
+        public void RemoveAllMemberRoles(int memberId)
+        {
+            List<MemberRole> memberRoles = _databaseContext.MemberRoles.Where(x => x.MemberId == memberId).ToList();
+
+            foreach (MemberRole role in memberRoles)
+            {
+                _databaseContext.MemberRoles.Remove(role);
+            }
+
+            _databaseContext.SaveChanges();
         }
     }
 }
