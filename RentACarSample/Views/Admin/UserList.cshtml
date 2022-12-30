@@ -26,7 +26,7 @@
                         <td>@member.Username</td>
                         <td>
                             <a asp-action="ResetPassword" asp-route-id="@member.Id" class="btn btn-info btn-sm">Reset Password</a>
-                            <a class="btn btn-danger btn-sm">Change Roles</a>
+                            <a asp-action="ChangeRoles" asp-route-id="@member.Id" class="btn btn-danger btn-sm">Change Roles</a>
                         </td>
                     </tr>
                 }

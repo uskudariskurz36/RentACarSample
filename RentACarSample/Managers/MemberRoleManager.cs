@@ -1,4 +1,5 @@
-﻿using RentACarSample.Entities;
+﻿using RentACarSample.Common;
+using RentACarSample.Entities;
 
 namespace RentACarSample.Managers
 {
@@ -7,6 +8,7 @@ namespace RentACarSample.Managers
         void AddMemberRole(int memberId, string roleName);
         void RemoveMemberRole(int memberRoleId);
         void RemoveMemberRole(string roleName, int memberId);
+        List<MemberRole> GetRolesByMemberId(int memberId);
     }
 
     public class MemberRoleManager : IMemberRoleManager
@@ -53,6 +55,11 @@ namespace RentACarSample.Managers
 
             _databaseContext.MemberRoles.Remove(memberRole);
             _databaseContext.SaveChanges();
+        }
+
+        public List<MemberRole> GetRolesByMemberId(int memberId)
+        {
+            return _databaseContext.MemberRoles.Where(x => x.MemberId == memberId).ToList();
         }
     }
 }

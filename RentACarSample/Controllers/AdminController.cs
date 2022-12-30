@@ -12,10 +12,12 @@ namespace RentACarSample.Controllers
     public class AdminController : Controller
     {
         private IMemberManager _memberManager;
+        private IMemberRoleManager _memberRoleManager;
 
-        public AdminController(IMemberManager memberManager)
+        public AdminController(IMemberManager memberManager, IMemberRoleManager memberRoleManager)
         {
             _memberManager = memberManager;
+            _memberRoleManager = memberRoleManager;
         }
 
         public IActionResult UserList()
@@ -46,6 +48,35 @@ namespace RentACarSample.Controllers
             }
 
             return View(model);
+        }
+
+        
+        public IActionResult ChangeRoles(int id)
+        {
+            string username = _memberManager.GetUsernameById(id);
+
+            ChangeRolesViewModel model = new ChangeRolesViewModel();
+            model.Username = username;
+
+            List<MemberRole> roles = _memberRoleManager.GetRolesByMemberId(id);
+
+            model.IsAdmin = roles.Any(x => x.Name == Roles.Admin);
+            model.IsUser = roles.Any(x => x.Name == Roles.User);
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult ChangeRoles(int id, ChangeRolesViewModel model, [FromServices]IServiceProvider serviceProvider)
+        {
+            DatabaseContext _databaseContext = serviceProvider.GetRequiredService<DatabaseContext>();   
+
+            if (model.IsAdmin)
+            {
+                
+            }
+
+            return View();
         }
     }
 }

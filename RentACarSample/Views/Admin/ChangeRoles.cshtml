@@ -1,0 +1,25 @@
+﻿@model ChangeRolesViewModel
+
+<partial name="_PageTitlePartial" model="@("Change Roles")" />
+
+<div class="row mb-3">
+    <div class="col">
+        <div><b>Username : </b>@Model.Username</div>
+        <div class="mt-2">
+            <form method="post">
+                
+                <div>
+                    <input asp-for="IsAdmin" type="checkbox" />
+                    <label asp-for="IsAdmin" class="form-label">Admin</label>
+                </div>
+
+                <div>
+                    <input asp-for="IsUser" type="checkbox" />
+                    <label asp-for="IsUser" class="form-label">User</label>
+                </div>
+
+                <div><button type="submit" class="btn btn-primary mt-2 btn-sm">Save</button></div>
+            </form>
+        </div>
+    </div>
+</div>
