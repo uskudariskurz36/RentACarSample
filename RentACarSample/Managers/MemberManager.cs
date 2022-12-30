@@ -10,6 +10,7 @@ namespace RentACarSample.Managers
         Member AddMember(RegisterViewModel model);
         Member Authenticate(LoginViewModel model);
         int? GetIdByUsername(string username);
+        List<Member> List();
     }
 
     public class MemberManager : IMemberManager
@@ -50,6 +51,11 @@ namespace RentACarSample.Managers
 
             return _databaseContext.Members.Include(x => x.Roles).FirstOrDefault(
                 x => x.Username == model.Username && x.Password == model.Password);
+        }
+
+        public List<Member> List()
+        {
+            return _databaseContext.Members.ToList();
         }
     }
 }

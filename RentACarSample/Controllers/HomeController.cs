@@ -16,13 +16,11 @@ namespace RentACarSample.Controllers
             _logger = logger;
         }
 
-        [Authorize(Roles = $"{Roles.Admin},{Roles.User}")]
         public IActionResult Index()
         {
             return View();
         }
 
-        [Authorize(Roles = Roles.Admin)]
         public IActionResult Privacy()
         {
             return View();
