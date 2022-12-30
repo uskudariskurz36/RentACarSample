@@ -25,7 +25,7 @@ namespace RentACarSample.Managers
         {
             if (_databaseContext.Members.Any(x => x.Username.ToLower() == model.Username.ToLower()))
             {
-                return _databaseContext.Members.Where(x => x.Username.ToLower() == model.Username.ToLower()).FirstOrDefault();
+                throw new Exception("Kullanıcı adı sistem de mevcut.");
             }
 
             Member member = new Member();

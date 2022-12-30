@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using RentACarSample.Common;
 using RentACarSample.Models;
 using System.Diagnostics;
 
@@ -15,13 +16,13 @@ namespace RentACarSample.Controllers
             _logger = logger;
         }
 
-        [Authorize(Roles = "Admin,User")]
+        [Authorize(Roles = $"{Roles.Admin},{Roles.User}")]
         public IActionResult Index()
         {
             return View();
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = Roles.Admin)]
         public IActionResult Privacy()
         {
             return View();

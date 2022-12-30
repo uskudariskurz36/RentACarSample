@@ -82,7 +82,20 @@ namespace RentACarSample.Controllers
                 //    return RedirectToAction(nameof(Login));
                 //}
 
-                Member member = _memberManager.AddMember(model);
+                Member member = null;
+
+
+                try
+                {
+                    member = _memberManager.AddMember(model);
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                    return View(model);
+                }
+               
+
                 _memberRoleManager.AddMemberRole(member.Id, Roles.User);
                 return RedirectToAction(nameof(Login));
             }
