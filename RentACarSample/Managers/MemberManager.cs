@@ -10,7 +10,9 @@ namespace RentACarSample.Managers
         Member AddMember(RegisterViewModel model);
         Member Authenticate(LoginViewModel model);
         int? GetIdByUsername(string username);
+        string GetUsernameById(int id);
         List<Member> List();
+        void ResetPassword(string password, int memberId);
     }
 
     public class MemberManager : IMemberManager
@@ -56,6 +58,18 @@ namespace RentACarSample.Managers
         public List<Member> List()
         {
             return _databaseContext.Members.ToList();
+        }
+
+        public string GetUsernameById(int id)
+        {
+            return _databaseContext.Members.Find(id).Username;
+        }
+
+        public void ResetPassword(string password, int memberId)
+        {
+            Member? member = _databaseContext.Members.Where(x => x.Id == memberId).FirstOrDefault();
+            member.Password = password.MD5();
+            _databaseContext.SaveChanges();
         }
     }
 }
