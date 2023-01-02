@@ -1,20 +1,21 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NETCore.Encrypt.Extensions;
+using RentACarSample.Areas.Admin.Models;
 using RentACarSample.Common;
 using RentACarSample.Entities;
 using RentACarSample.Managers;
-using RentACarSample.Models;
 
-namespace RentACarSample.Controllers
+namespace RentACarSample.Areas.Admin.Controllers
 {
+    [Area("Admin")]
     [Authorize(Roles = Roles.Admin)]
-    public class AdminController : Controller
+    public class UserController : Controller
     {
         private IMemberManager _memberManager;
         private IMemberRoleManager _memberRoleManager;
 
-        public AdminController(IMemberManager memberManager, IMemberRoleManager memberRoleManager)
+        public UserController(IMemberManager memberManager, IMemberRoleManager memberRoleManager)
         {
             _memberManager = memberManager;
             _memberRoleManager = memberRoleManager;
@@ -30,10 +31,10 @@ namespace RentACarSample.Controllers
         public IActionResult ResetPassword(int id)
         {
             string username = _memberManager.GetUsernameById(id);
-            
+
             ResetPasswordViewModel model = new ResetPasswordViewModel();
             model.Username = username;
-            
+
             return View(model);
         }
 
@@ -50,7 +51,7 @@ namespace RentACarSample.Controllers
             return View(model);
         }
 
-        
+
         public IActionResult ChangeRoles(int id)
         {
             string username = _memberManager.GetUsernameById(id);

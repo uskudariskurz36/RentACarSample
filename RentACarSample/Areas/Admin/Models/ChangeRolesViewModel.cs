@@ -1,4 +1,4 @@
-﻿namespace RentACarSample.Models
+﻿namespace RentACarSample.Areas.Admin.Models
 {
     public class ChangeRolesViewModel
     {

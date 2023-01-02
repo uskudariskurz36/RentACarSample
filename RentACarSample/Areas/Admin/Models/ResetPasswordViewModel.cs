@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace RentACarSample.Models
+namespace RentACarSample.Areas.Admin.Models
 {
     public class ResetPasswordViewModel
     {
