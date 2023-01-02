@@ -1,0 +1,49 @@
+﻿@model List<Brand>
+
+<partial name="_PageTitlePartial" model="@("Brands")" />
+
+<div class="row mb-3">
+    <div class="col">
+        <a class="btn btn-primary btn-sm" asp-action="Create">Create New Brand</a>
+    </div>
+</div>
+
+<div class="row mb-3">
+    <div class="col">
+        <table class="table table-sm table-bordered table-hover text-center">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Hidden</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Brand brand in Model)
+                {
+                    <tr>
+                        <td>@brand.Id</td>
+                        <td>@brand.Name</td>
+                        <td>@brand.Description</td>
+                        <td>
+                            @if (brand.Hidden)
+                            {
+                                <i class="bi bi-check-circle text-success"></i>
+                            }
+                            else
+                            {
+                                <i class="bi bi-x-circle text-danger"></i>
+                            }
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@brand.Id" class="btn btn-info btn-sm">Edit</a>
+                            <a asp-action="Delete" asp-route-id="@brand.Id" onclick="return confirm('İlgili markayı silmek istediğinize emin misiniz?')" class="btn btn-danger btn-sm">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

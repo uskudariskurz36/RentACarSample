@@ -1,12 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace RentACarSample.Entities
+namespace RentACarSample.Areas.Admin.Models
 {
-    public class Brand
+    public class BrandCreateViewModel
     {
-        [Key]
-        public int Id { get; set; }
-
         [Required]
         [StringLength(30)]
         public string Name { get; set; }
