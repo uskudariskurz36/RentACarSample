@@ -21,6 +21,7 @@ namespace RentACarSample
 
             builder.Services.AddScoped<IMemberManager, MemberManager>();
             builder.Services.AddScoped<IMemberRoleManager, MemberRoleManager>();
+            builder.Services.AddScoped<IBrandManager, BrandManager>();
 
             // Authentication : Kimlik doðrulama
             builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

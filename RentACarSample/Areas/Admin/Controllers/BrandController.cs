@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using RentACarSample.Areas.Admin.Models;
 using RentACarSample.Common;
 using RentACarSample.Entities;
+using RentACarSample.Managers;
 
 namespace RentACarSample.Areas.Admin.Controllers
 {
@@ -10,16 +11,16 @@ namespace RentACarSample.Areas.Admin.Controllers
     [Authorize(Roles = Roles.Admin)]
     public class BrandController : Controller
     {
-        private DatabaseContext _databaseContext;
+        private IBrandManager _brandManager;
 
-        public BrandController(DatabaseContext databaseContext)
+        public BrandController(IBrandManager brandManager)
         {
-            _databaseContext = databaseContext;
+            _brandManager = brandManager;
         }
 
         public IActionResult Index()
         {
-            List<Brand> model = _databaseContext.Brands.ToList();
+            List<Brand> model = _brandManager.List();
             return View(model);
         }
 
@@ -33,19 +34,13 @@ namespace RentACarSample.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (_databaseContext.Brands.Any(x => x.Name.ToLower() == model.Name.ToLower()))
+                if (_brandManager.IsNameExists(model.Name))
                 {
                     ModelState.AddModelError(nameof(model.Name), "İlgili marka zaten bulunmaktadır.");
                 }
                 else
                 {
-                    Brand brand = new Brand();
-                    brand.Name = model.Name;
-                    brand.Description = model.Description;
-                    brand.Hidden = model.Hidden;
-
-                    _databaseContext.Brands.Add(brand);
-                    _databaseContext.SaveChanges();
+                    Brand brand = _brandManager.Create(model);
 
                     return RedirectToAction(nameof(Index));
                 }
@@ -56,7 +51,7 @@ namespace RentACarSample.Areas.Admin.Controllers
 
         public IActionResult Edit(int id)
         {
-            Brand brand = _databaseContext.Brands.Find(id);
+            Brand? brand = _brandManager.GetById(id);
 
             if (brand == null)
             {
@@ -76,7 +71,7 @@ namespace RentACarSample.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                Brand brand = _databaseContext.Brands.Find(id);
+                Brand? brand = _brandManager.GetById(id);
 
                 if (brand == null)
                 {
@@ -84,17 +79,13 @@ namespace RentACarSample.Areas.Admin.Controllers
                 }
                 else
                 {
-                    if (_databaseContext.Brands.Any(x => x.Name.ToLower() == model.Name.ToLower() && x.Id != id))
+                    if (_brandManager.IsNameExistsBySelfOnly(id, model.Name))
                     {
                         ModelState.AddModelError(nameof(model.Name), "İlgili marka zaten bulunmaktadır.");
                     }
                     else
                     {
-                        brand.Name = model.Name;
-                        brand.Description = model.Description;
-                        brand.Hidden = model.Hidden;
-
-                        _databaseContext.SaveChanges();
+                        _brandManager.Update(id, model);
 
                         return RedirectToAction(nameof(Index));
                     }
@@ -106,12 +97,11 @@ namespace RentACarSample.Areas.Admin.Controllers
 
         public IActionResult Delete(int id)
         {
-            Brand? brand = _databaseContext.Brands.Find(id);
+            Brand? brand = _brandManager.GetById(id);
 
             if (brand != null)
             {
-                _databaseContext.Brands.Remove(brand);
-                _databaseContext.SaveChanges();
+                _brandManager.Remove(brand);
             }
 
             return RedirectToAction(nameof(Index));
