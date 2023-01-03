@@ -17,5 +17,6 @@ namespace RentACarSample.Entities
         public bool Hidden { get; set; }
 
         public List<SubBrand> SubBrands { get; set; }
+        public List<Car> Cars { get; set; }
     }
 }

@@ -1,0 +1,8 @@
+﻿@model List<SubBrand>
+
+<option value="">Seçiniz</option>
+
+@foreach (SubBrand sb in Model)
+{
+    <option value="@sb.Id">@sb.Name</option>
+}

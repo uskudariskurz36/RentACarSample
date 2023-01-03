@@ -15,5 +15,6 @@ namespace RentACarSample.Entities
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Branch> Branches { get; set; }
         public DbSet<Inventory> Inventories { get; set; }
+        public DbSet<Car> Cars { get; set; }
     }
 }
