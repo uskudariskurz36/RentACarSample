@@ -1,0 +1,92 @@
+﻿@model IEnumerable<Customer>
+
+@{
+    ViewData["Title"] = "Customers";
+}
+
+<partial name="_PageTitlePartial" model="@("Customers")" />
+
+<div class="row mb-3">
+    <div class="col">
+        <a class="btn btn-primary btn-sm" asp-action="Create">Create New</a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <table class="table table-bordered table-sm table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Id)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Surname)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TCKN)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Phone)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Email)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.IsBlacklist)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Description)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (Customer item in Model)
+                {
+                    <tr>
+                        <td>
+                            @item.Id
+                        </td>
+                        <td>
+                            @item.Name
+                        </td>
+                        <td>
+                            @item.Surname
+                        </td>
+                        <td>
+                            @item.TCKN
+                        </td>
+                        <td>
+                            @item.Phone
+                        </td>
+                        <td>
+                            @item.Email
+                        </td>
+                        <td>
+                            @if (item.IsBlacklist)
+                            {
+                                <i class="bi bi-check-circle text-success"></i>
+                            }
+                            else
+                            {
+                                <i class="bi bi-x-circle text-danger"></i>
+                            }
+                        </td>
+                        <td>
+                            @item.Description
+                        </td>
+                        <td>
+                            <a class="btn btn-warning btn-sm" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                            <a class="btn btn-info btn-sm" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                            <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
