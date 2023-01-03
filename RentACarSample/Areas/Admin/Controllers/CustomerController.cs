@@ -149,7 +149,7 @@ namespace RentACarSample.Areas.Admin.Controllers
         // POST:Customer/Delete/5
         [HttpPost]
         [ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+    [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirm(int id)
         {
             Customer? customer = _databaseContext.Customers.Find(id);
