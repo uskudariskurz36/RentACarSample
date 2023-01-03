@@ -1,10 +1,10 @@
-﻿@model RentACarSample.Entities.Inventory
+﻿@model RentACarSample.Entities.SubBrand
 
 @{
     ViewData["Title"] = "Edit";
 }
 
-<partial name="_PageTitlePartial" model="@("Edit Inventory")" />
+<partial name="_PageTitlePartial" model="@("Edit SubBrand")" />
 
 <div class="row">
     <div class="col-md-4">
@@ -17,14 +17,9 @@
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="BranchId" class="control-label"></label>
-                <select asp-for="BranchId" class="form-select" asp-items="ViewBag.BranchId"></select>
-                <span asp-validation-for="BranchId" class="text-danger"></span>
+                <label asp-for="BrandId" class="control-label"></label>
+                <select asp-for="BrandId" class="form-select" asp-items="ViewBag.BrandId"></select>
+                <span asp-validation-for="BrandId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

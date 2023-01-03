@@ -1,13 +1,11 @@
-﻿@model RentACarSample.Entities.Inventory
+﻿@model RentACarSample.Entities.SubBrand
 
 @{
     ViewData["Title"] = "Details";
 }
-
-<partial name="_PageTitlePartial" model="@("Details Inventory")" />
+<partial name="_PageTitlePartial" model="@("Details SubBrand")" />
 
 <div>
-
     <dl class="row">
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Name)
@@ -16,16 +14,10 @@
             @Html.DisplayFor(model => model.Name)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Price)
+            @Html.DisplayNameFor(model => model.Brand)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Branch)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Branch.Address)
+            @Html.DisplayFor(model => model.Brand.Name)
         </dd>
     </dl>
 </div>
