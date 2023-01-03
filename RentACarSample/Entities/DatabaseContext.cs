@@ -12,5 +12,7 @@ namespace RentACarSample.Entities
         public DbSet<MemberRole> MemberRoles { get; set; }
         public DbSet<Brand> Brands { get; set; }
         public DbSet<Customer> Customers { get; set; }
+        public DbSet<Branch> Branches { get; set; }
+        public DbSet<Inventory> Inventories { get; set; }
     }
 }
