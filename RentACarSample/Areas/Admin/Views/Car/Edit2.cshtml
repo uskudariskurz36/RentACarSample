@@ -1,7 +1,7 @@
-﻿@model CarCreateViewModel
+﻿@model CarEditViewModel
 
 
-<partial name="_PageTitlePartial" model="@("Create Car")" />
+<partial name="_PageTitlePartial" model="@("Edit Car")" />
 
 <div class="row">
     <div class="col">
@@ -17,7 +17,7 @@
 
             <div class="form-group mb-3">
                 <label asp-for="SubBrandId" class="control-label"><b>Sub Brand</b></label>
-                <select asp-for="SubBrandId" class="form-select">
+                <select asp-for="SubBrandId" class="form-select" asp-items="@Model.SubBrands">
                     <option value="">Seçiniz</option>
                 </select>
             </div>
@@ -41,13 +41,28 @@
             </div>
 
             <div class="form-group mb-3">
-                <button type="submit" class="btn btn-primary btn-sm">Create</button>
+                <button type="submit" class="btn btn-primary btn-sm">Save</button>
             </div>
         </form>
     </div>
 </div>
 
+@section MenuExtra{
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="Admin" asp-controller="Car" asp-action="Create">Create Car</a>
+    </li>
+}
+
+@section Styles{
+    <style>
+        .test {
+            color: red;
+        }
+    </style>
+}
+
 @section Scripts{
+
     <script>
         function brandOnChange() {
             var brandId = $("#BrandId").val();
@@ -57,3 +72,4 @@
         }
     </script>
 }
+

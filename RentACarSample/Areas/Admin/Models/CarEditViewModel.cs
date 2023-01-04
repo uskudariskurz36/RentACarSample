@@ -16,6 +16,6 @@ namespace RentACarSample.Areas.Admin.Models
         public int SubBrandId { get; set; }
 
         public SelectList? Brands { get; set; }
-        //public SelectList? SubBrands { get; set; }
+        public SelectList? SubBrands { get; set; }
     }
 }
