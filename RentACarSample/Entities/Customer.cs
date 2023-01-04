@@ -5,7 +5,7 @@ namespace RentACarSample.Entities
     public class Customer
     {
         [Key]
-        [Display(Name="Customer ID")]
+        [Display(Name = "Customer ID")]
         public int Id { get; set; }
 
         [Required]
@@ -32,5 +32,13 @@ namespace RentACarSample.Entities
 
         [StringLength(300)]
         public string? Description { get; set; }
+
+        public string FullName
+        {
+            get
+            {
+                return $"{Name} {Surname}";
+            }
+        }
     }
 }

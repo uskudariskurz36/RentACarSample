@@ -1,0 +1,36 @@
+﻿@model RentCreateViewModel
+
+<div class="form-group mb-2">
+    <label asp-for="CarId" class="form-label">Car</label>
+    <select asp-for="CarId" asp-items="@Model.Cars" class="form-select">
+        <option value="">Seçiniz</option>
+    </select>
+    <span asp-validation-for="CarId" class="text-danger small"></span>
+</div>
+<div class="form-group mb-2">
+    <label asp-for="CustomerId" class="form-label">Customer</label>
+    <select asp-for="CustomerId" asp-items="@Model.Customers" class="form-select">
+        <option value="">Seçiniz</option>
+    </select>
+    <span asp-validation-for="CustomerId" class="text-danger small"></span>
+</div>
+<div class="form-group mb-2">
+    <label asp-for="Price" class="form-label">Price</label>
+    <input asp-for="Price" class="form-control" placeholder="1000" />
+    <span asp-validation-for="Price" class="text-danger small"></span>
+</div>
+<div class="form-group mb-2">
+    <label asp-for="KM" class="form-label">KM</label>
+    <input asp-for="KM" class="form-control" type="number" placeholder="10" />
+    <span asp-validation-for="KM" class="text-danger small"></span>
+</div>
+<div class="form-group mb-2">
+    <label asp-for="ReceivedDate" class="form-label">Received Date</label>
+    <input asp-for="ReceivedDate" class="form-control" type="datetime-local" />
+    <span asp-validation-for="ReceivedDate" class="text-danger small"></span>
+</div>
+<div class="form-group mb-2">
+    <label asp-for="Description" class="form-label">Description</label>
+    <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+    <span asp-validation-for="Description" class="text-danger small"></span>
+</div>

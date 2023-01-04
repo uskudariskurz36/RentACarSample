@@ -1,6 +1,4 @@
-﻿@model List<Rent>
-
-@{
+﻿@{
     ViewData["Title"] = "Rents";
 }
 
@@ -8,7 +6,7 @@
 
 <div class="row mb-3">
     <div class="col">
-        <a asp-action="Create" class="btn btn-primary btn-sm">Rent A Car</a>
+        <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalCreate" onclick="loadCreateModal()">Rent A Car</button>
     </div>
 </div>
 
@@ -47,6 +45,28 @@
 </div>
 
 <!-- Modal -->
+<div class="modal fade" id="modalCreate" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">New Rent</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div id="modalCreateBody" class="col">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="saveRent()">Kaydet</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
 <div class="modal fade" id="modalDesc" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -81,3 +101,41 @@
         </div>
     </div>
 </div>
+
+
+
+@section Scripts{
+    <script>
+
+        function loadCreateModal() {
+            $("#modalCreateBody").load("/Admin/Rent/GetCreatePartial");
+        }
+
+        function saveRent() {
+            var mb = $("#modalCreateBody");
+
+            var carId = mb.find("#CarId").val();
+            var custId = mb.find("#CustomerId").val();
+            var km = mb.find("#KM").val();
+            var price = mb.find("#Price").val();
+            var recDate = mb.find("#ReceivedDate").val();
+            var desc = mb.find("#Description").val();
+
+            var data = {
+                "CarId": carId,
+                "CustomerId": custId,
+                "KM": km,
+                "Price": price,
+                "ReceivedDate": recDate,
+                "Description": desc
+            };
+
+            mb.load("/Admin/Rent/Create", data, null);
+        }
+
+        $(function () {
+            //$("#modalCreate .modal-body .col")
+            //$("#modalCreateBody").load("/Admin/Rent/GetCreatePartial");
+        });
+    </script>
+}
