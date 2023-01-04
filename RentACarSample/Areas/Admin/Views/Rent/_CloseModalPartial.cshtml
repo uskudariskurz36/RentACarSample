@@ -1,5 +1,10 @@
-﻿@model string
+﻿@model CloseModalPartialViewModel
 
 <script>
-    $("#@(Model)").modal("hide");
+    $("#@Model.ModalId").modal("hide");
+
+    @if (Model.ShowToastr)
+    {
+        @:toastr["@Model.ToastrType"]("@Model.ToastrMessage", "@Model.ToastrTitle");
+    }
 </script>

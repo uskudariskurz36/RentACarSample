@@ -2,7 +2,7 @@
 
 <div class="form-group mb-2">
     <label asp-for="CarId" class="form-label">Car</label>
-    <select asp-for="CarId" asp-items="@Model.Cars" class="form-select">
+    <select asp-for="CarId" asp-items="@Model.Cars" class="form-select" onchange="selectedCarChanged()">
         <option value="">Seçiniz</option>
     </select>
     <span asp-validation-for="CarId" class="text-danger small"></span>
@@ -34,3 +34,16 @@
     <textarea asp-for="Description" class="form-control" rows="3"></textarea>
     <span asp-validation-for="Description" class="text-danger small"></span>
 </div>
+
+<script>
+    function selectedCarChanged() {
+        var carId = $("#CarId").val();
+        var url = "/Admin/Rent/GetPriceData?carId=" + carId;
+
+        $.get(url, function (data) {
+            console.log(data);
+
+            $("#Price").val(data);
+        });
+    }
+</script>

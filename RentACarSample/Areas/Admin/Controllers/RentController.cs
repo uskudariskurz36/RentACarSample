@@ -24,10 +24,18 @@ namespace RentACarSample.Areas.Admin.Controllers
         public IActionResult GetCreatePartial()
         {
             RentCreateViewModel model = new RentCreateViewModel();
+            model.ReceivedDate = DateTime.Now;
             model.Cars = new SelectList(_databaseContext.Cars.ToList(), nameof(Car.Id), nameof(Car.Plate));
             model.Customers = new SelectList(_databaseContext.Customers.ToList(), nameof(Customer.Id), nameof(Customer.FullName));
 
             return PartialView("_CreateRentPartial", model);
+        }
+
+        // GET : /Admin/Rent/GetPriceData?carId=1
+        public IActionResult GetPriceData(int carId)
+        {
+            Car car = _databaseContext.Cars.Find(carId);
+            return Json(car.DailyPrice);
         }
 
         [HttpPost]
@@ -50,7 +58,16 @@ namespace RentACarSample.Areas.Admin.Controllers
                 _databaseContext.Rents.Add(rent);
                 _databaseContext.SaveChanges();
 
-                return PartialView("_CloseModalPartial", "modalCreate");
+                CloseModalPartialViewModel partialModel = new CloseModalPartialViewModel
+                {
+                    ModalId = "modalCreate",
+                    ShowToastr = true,
+                    ToastrType = "success",
+                    ToastrTitle = "Kiralama Yapıldı",
+                    ToastrMessage = "Araç kiralama kaydı başarıyla yapılmıştır."
+                };
+
+                return PartialView("_CloseModalPartial", partialModel);
             }
 
             model.Cars = new SelectList(_databaseContext.Cars.ToList(), nameof(Car.Id), nameof(Car.Plate));
