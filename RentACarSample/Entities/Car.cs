@@ -10,12 +10,17 @@ namespace RentACarSample.Entities
         [StringLength(300)]
         public string Plate { get; set; }
 
+        [Display(Name = "Daily Price")]
         [StringLength(300)]
         public decimal DailyPrice { get; set; }
 
+        [Display(Name = "Is Available")]
         public bool IsAvailable { get; set; }
 
+        [Display(Name = "Brand")]
         public int BrandId { get; set; }
+
+        [Display(Name = "Sub Brand")]
         public int SubBrandId { get; set; }
 
         public Brand Brand { get; set; }

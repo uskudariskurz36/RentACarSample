@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Car>
+
+@{
+    ViewData["Title"] = "Cars";
+}
+
+<partial name="_PageTitlePartial" model="@ViewData["Title"]" />
+
+<div class="row mb-3">
+    <div class="col">
+        <a asp-action="Create" class="btn btn-primary btn-sm">Create New</a>
+    </div>
+</div>
+
+<table class="table table-bordered table-sm table-hover text-center">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Plate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DailyPrice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsAvailable)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BrandId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SubBrandId)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Car item in Model)
+        {
+            <tr>
+                <td>
+                    @item.Plate
+                </td>
+                <td>
+                    @item.DailyPrice
+                </td>
+                <td>
+                    @if (item.IsAvailable)
+                    {
+                        <i class="bi bi-check-circle text-success"></i>
+                    }
+                    else
+                    {
+                        <i class="bi bi-x-circle text-danger"></i>
+                    }
+                </td>
+                <td>
+                    @item.Brand.Name
+                </td>
+                <td>
+                    @item.SubBrand.Name
+                </td>
+                <td>
+                    <a class="btn btn-warning btn-sm" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                    <a class="btn btn-info btn-sm" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                    <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - RentACarSample</title>
+    <title>@ViewData["Title"] | Rent A Car App</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link href="~/lib/bootstrap-icons/font/bootstrap-icons.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
@@ -44,11 +44,12 @@
                                     </a>
                                     <ul class="dropdown-menu">
                                         <li><a class="dropdown-item" asp-area="Admin" asp-controller="User" asp-action="UserList">Users</a></li>
-                                        <li><a class="dropdown-item" asp-area="Admin" asp-controller="Brand" asp-action="Index">Brands</a></li>
                                         <li><a class="dropdown-item" asp-area="Admin" asp-controller="Customer" asp-action="Index">Customers</a></li>
                                         <li><a class="dropdown-item" asp-area="Admin" asp-controller="Branch" asp-action="Index">Branches</a></li>
                                         <li><a class="dropdown-item" asp-area="Admin" asp-controller="Inventory" asp-action="Index">Inventories</a></li>
+                                        <li><a class="dropdown-item" asp-area="Admin" asp-controller="Brand" asp-action="Index">Brands</a></li>
                                         <li><a class="dropdown-item" asp-area="Admin" asp-controller="SubBrand" asp-action="Index">SubBrands</a></li>
+                                        <li><a class="dropdown-item" asp-area="Admin" asp-controller="Car" asp-action="Index">Cars</a></li>
                                         @*<li><hr class="dropdown-divider"></li>*@
                                     </ul>
                                 </li>

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using RentACarSample.Areas.Admin.Models;
 using RentACarSample.Entities;
 
@@ -18,7 +19,8 @@ namespace RentACarSample.Areas.Admin.Controllers
         // GET: CarController
         public ActionResult Index()
         {
-            return View();
+            List<Car> cars = _databaseContext.Cars.Include(x => x.Brand).Include(x => x.SubBrand).ToList();
+            return View(cars);
         }
 
         // GET: CarController/Details/5

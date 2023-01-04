@@ -13,7 +13,7 @@ namespace RentACarSample.Entities
 
         public int BrandId { get; set; }
 
-        public Brand? Brand { get; set; } 
-        public List<Car> Cars { get; set; } 
+        public Brand? Brand { get; set; }
+        public List<Car> Cars { get; set; } = new List<Car>();
     }
 }
