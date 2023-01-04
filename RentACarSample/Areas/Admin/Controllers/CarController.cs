@@ -80,7 +80,24 @@ namespace RentACarSample.Areas.Admin.Controllers
         // GET: CarController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            Car car = _databaseContext.Cars.Find(id);
+
+            if (car == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            CarEditViewModel model = new CarEditViewModel();
+            model.Plate = car.Plate;
+            model.DailyPrice = car.DailyPrice;
+            model.IsAvailable = car.IsAvailable;
+            model.BrandId = car.BrandId;
+            model.SubBrandId = car.SubBrandId;
+
+            model.Brands = new SelectList(_databaseContext.Brands.ToList(),
+                    nameof(Brand.Id), nameof(Brand.Name));
+
+            return View(model);
         }
 
         // POST: CarController/Edit/5

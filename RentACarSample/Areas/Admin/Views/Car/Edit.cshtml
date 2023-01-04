@@ -1,0 +1,103 @@
+﻿@model CarEditViewModel
+
+
+<partial name="_PageTitlePartial" model="@("Edit Car")" />
+
+<div class="row">
+    <div class="col">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <div class="form-group mb-3">
+                <label asp-for="BrandId" class="control-label"><b>Brand</b></label>
+                <select asp-for="BrandId" class="form-select" asp-items="@Model.Brands" onchange="brandOnChange()">
+                    <option value="">Seçiniz</option>
+                </select>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="SubBrandId" class="control-label"><b>Sub Brand</b></label>
+                <select asp-for="SubBrandId" class="form-select">
+                    <option value="">Seçiniz</option>
+                </select>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Plate" class="control-label">Plate</label>
+                <input asp-for="Plate" class="form-control" />
+                <span asp-validation-for="Plate" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="DailyPrice" class="control-label">Daily Price</label>
+                <input asp-for="DailyPrice" class="form-control" />
+                <span asp-validation-for="DailyPrice" class="text-danger"></span>
+            </div>
+
+            <div class="form-group form-check mb-3">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsAvailable" /> Is Available
+                </label>
+            </div>
+
+            <div class="form-group mb-3">
+                <button type="submit" class="btn btn-primary btn-sm">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section MenuExtra{
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="Admin" asp-controller="Car" asp-action="Create">Create Car</a>
+    </li>
+}
+
+@section Styles{
+    <style>
+        .test {
+            color: red;
+        }
+    </style>
+}
+
+@section Scripts{
+
+    <script>
+
+        $(function () {
+            // sayfa yüklendikten sonra çalışacak js kodu.
+            brandOnChange();
+        });
+
+        //$(document).ready(function(){
+        //    // sayfa yüklendikten sonra çalışacak js kodu.
+        //});
+
+        //document.addEventListener("DOMContentLoaded",function(){
+        //    // sayfa yüklendikten sonra çalışacak js kodu.
+        //});
+
+        function brandOnChange() {
+            var brandId = $("#BrandId").val();
+            var url = '/Admin/Car/GetSubBrands?brandId=' + brandId;
+
+            $("#SubBrandId").load(url, function () {
+                $("#SubBrandId").val(@Model.SubBrandId);
+            });
+        }
+
+        @*@if (Model.IsAvailable)
+        {
+            @:alert('Araç uygundur!');
+        }*@
+    </script>
+
+    @*@if (Model.IsAvailable)
+    {
+        <script>
+            alert('Araç uygundur!');
+        </script>
+    }*@
+}
+
