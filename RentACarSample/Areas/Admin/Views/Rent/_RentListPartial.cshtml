@@ -1,0 +1,44 @@
+﻿@model List<Rent>
+
+
+<table class="table table-bordered table-sm table-hover text-center">
+    <thead>
+        <tr>
+            <th>Car</th>
+            <th>Customer</th>
+            <th>Daily Price</th>
+            <th>KM</th>
+            <th>Rent Date</th>
+            <th>Received Date</th>
+            <th>Received</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Rent item in Model)
+        {
+            <tr>
+                <td>@item.Car.Plate</td>
+                <td>@item.Customer.FullName</td>
+                <td>@item.Price</td>
+                <td>@item.KM</td>
+                <td>@item.RentDate</td>
+                <td>@item.ReceivedDate</td>
+                <td>
+                    @if (item.Received)
+                    {
+                        <i class="bi bi-check-circle text-success"></i>
+                    }
+                    else
+                    {
+                        <i class="bi bi-x-circle text-danger"></i>
+                    }
+                </td>
+                <td>
+                    <button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#modalDesc">Notlar</button>
+                    <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#modalReceive">Teslim Al</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

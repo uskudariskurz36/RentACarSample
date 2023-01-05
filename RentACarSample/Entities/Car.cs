@@ -25,5 +25,7 @@ namespace RentACarSample.Entities
 
         public Brand Brand { get; set; }
         public SubBrand SubBrand { get; set; }
+
+        public List<Rent> Rents { get; set; }
     }
 }

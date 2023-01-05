@@ -2,45 +2,61 @@
     ViewData["Title"] = "Rents";
 }
 
+@section Styles{
+    <style>
+        .bi-2x {
+            font-size: 1.5em;
+        }
+
+        .bi-spin {
+            position: absolute;
+            animation-name: spin;
+            animation-duration: 2s;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+        }
+
+        .loader-text {
+            height: 16px;
+            padding-left: 34px;
+            vertical-align: middle;
+            display: inline-block;
+        }
+
+        @@keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+}
+
 <partial name="_PageTitlePartial" model="@ViewData["Title"]" />
 
 <div class="row mb-3">
-    <div class="col">
+    <div class="col-6">
         <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalCreate" onclick="loadCreateModal()">Rent A Car</button>
+    </div>
+    <div class="offset-3 col-3">
+        <select id="filter" class="form-select" onchange="filterChanged()">
+            <option value="none">All</option>
+            <option value="received">Received</option>
+            <option value="nonreceived">Non-Received</option>
+        </select>
     </div>
 </div>
 
 <div class="row">
     <div class="col">
-        <table class="table table-bordered table-sm table-hover text-center">
-            <thead>
-                <tr>
-                    <th>Car</th>
-                    <th>Customer</th>
-                    <th>Daily Price</th>
-                    <th>KM</th>
-                    <th>Rent Date</th>
-                    <th>Received Date</th>
-                    <th>Received</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Ipsum.</td>
-                    <td>Dolor.</td>
-                    <td>Sit.</td>
-                    <td>Amet.</td>
-                    <td>Consectetur.</td>
-                    <td>Adipiscing.</td>
-                    <td>Elit.</td>
-                    <td>
-                        <button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#modalDesc">Notlar</button>
-                        <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#modalReceive">Teslim Al</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <div id="rents-loader" class="loader mb-5" style="display:none;">
+            <i class="bi bi-arrow-repeat bi-2x bi-spin"></i><span class="loader-text"> loading..</span>
+        </div>
+        <div id="rents">
+        </div>
     </div>
 </div>
 
@@ -130,12 +146,36 @@
                 "Description": desc
             };
 
-            mb.load("/Admin/Rent/Create", data, null);
+            mb.load("/Admin/Rent/Create", data, function () {
+                loadRents(null);
+            });
         }
 
         $(function () {
             //$("#modalCreate .modal-body .col")
             //$("#modalCreateBody").load("/Admin/Rent/GetCreatePartial");
+            loadRents(null);
         });
+
+        function loadRents(filter) {
+            $("#rents").empty();
+            $("#rents-loader").show();
+
+            if (filter != null) {
+                filter = "?filter=" + filter;
+            }
+            else {
+                filter = "";
+            }
+
+            $("#rents").load("/Admin/Rent/GetRentListPartial" + filter, function () {
+                $("#rents-loader").hide();
+            });
+        }
+
+        function filterChanged() {
+            var filter = $("#filter").val();
+            loadRents(filter);
+        }
     </script>
 }
