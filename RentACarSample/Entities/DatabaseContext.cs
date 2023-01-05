@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using NETCore.Encrypt.Extensions;
+using RentACarSample.Common;
 
 namespace RentACarSample.Entities
 {
@@ -7,7 +9,20 @@ namespace RentACarSample.Entities
         public DatabaseContext(DbContextOptions options) : base(options)
         {
 #if DEBUG
+            if (Database.CanConnect())
+            {
+                if (Members.Any() == false)
+                {
+                    Members.Add(new Member
+                    {
+                        Username = "admin",
+                        Password = "admin123".MD5(),
+                        Roles = new List<MemberRole> { new MemberRole { Name = Roles.Admin } }
+                    });
 
+                    SaveChanges();
+                }
+            }
 #else
             if (Database.GetPendingMigrations().Count() > 0)
             {
