@@ -35,8 +35,12 @@
                     }
                 </td>
                 <td>
-                    <button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#modalDesc">Notlar</button>
-                    <button type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#modalReceive">Teslim Al</button>
+                    <button type="button" data-id="@item.Id" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#modalDesc" onclick="loadDesc(this)">Notlar</button>
+                    
+                    @if (!item.Received)
+                    {
+                        <button type="button" data-id="@item.Id" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#modalReceive" onclick="showReceive(this)">Teslim Al</button>
+                    }
                 </td>
             </tr>
         }

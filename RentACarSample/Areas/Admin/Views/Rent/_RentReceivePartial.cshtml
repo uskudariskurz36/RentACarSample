@@ -1,0 +1,91 @@
+﻿@model Rent
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-4">
+            @Html.DisplayNameFor(model => model.Customer)
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayFor(model => model.Customer.Name)
+        </dd>
+        <dt class="col-sm-4">
+            @Html.DisplayNameFor(model => model.Car)
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayFor(model => model.Car.Plate)
+        </dd>
+        <dt class="col-sm-4">
+            @Html.DisplayNameFor(model => model.KM)
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayFor(model => model.KM)
+        </dd>
+        <dt class="col-sm-4">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt class="col-sm-4">
+            <hr />
+        </dt>
+        <dd class="col-sm-8">
+            <hr />
+        </dd>
+
+        <dt class="col-sm-4">
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+        <dt class="col-sm-4">
+            @Html.DisplayNameFor(model => model.ReceivedDate)
+        </dt>
+        <dd class="col-sm-8">
+            @Html.DisplayFor(model => model.ReceivedDate)
+        </dd>
+        <dt class="col-sm-4">
+            @Html.DisplayNameFor(model => model.Received)
+        </dt>
+        <dd class="col-sm-8">
+            @if (Model.Received)
+            {
+                <i class="bi bi-check-circle text-success"></i>
+            }
+            else
+            {
+                <i class="bi bi-x-circle text-danger"></i>
+            }
+        </dd>
+
+        <dt class="col-sm-4">
+            <hr />
+        </dt>
+        <dd class="col-sm-8">
+            <hr />
+        </dd>
+
+        @{
+            int dayCount = Model.ReceivedDate.Subtract(Model.RentDate).Days;
+            decimal total = dayCount * Model.Price;
+        }
+
+        <dt class="col-sm-4">
+            Day Count :
+        </dt>
+        <dd class="col-sm-8">
+            @dayCount
+        </dd>
+        <dt class="col-sm-4">
+            Total Price :
+        </dt>
+        <dd class="col-sm-8">
+            @total.ToString("C0")
+        </dd>
+    </dl>
+</div>
+<div class="mt-3">
+    <button type="button" class="btn btn-success btn-sm" data-id="@Model.Id" onclick="doReceive('@Model.Id')">Take Receive!</button>
+</div>
