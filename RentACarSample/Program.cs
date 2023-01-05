@@ -16,7 +16,7 @@ namespace RentACarSample
 
             builder.Services.AddDbContext<DatabaseContext>(options =>
             {
-                options.UseSqlServer(builder.Configuration.GetConnectionString("Default"));
+                options.UseNpgsql(builder.Configuration.GetConnectionString("Default"));
             });
 
             builder.Services.AddScoped<IMemberManager, MemberManager>();
