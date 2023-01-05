@@ -6,6 +6,14 @@ namespace RentACarSample.Entities
     {
         public DatabaseContext(DbContextOptions options) : base(options)
         {
+#if DEBUG
+
+#else
+            if (Database.GetPendingMigrations().Count() > 0)
+            {
+                Database.Migrate();
+            }
+#endif
         }
 
         public DbSet<Member> Members { get; set; }

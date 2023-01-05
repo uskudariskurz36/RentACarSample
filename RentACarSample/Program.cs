@@ -38,8 +38,6 @@ namespace RentACarSample
 
 
 
-
-
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
